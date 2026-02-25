@@ -2,38 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Unit Converter</title>
+    <title>Kilometer/Mile Converter</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background-color: #f4f4f9; }
-        .card { background: white; padding: 20px; border-radius: 8px; shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; text-align: center; }
-        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        #result { margin-top: 20px; font-size: 1.2em; font-weight: bold; color: #611f69; }
+        body { font-family: -apple-system, sans-serif; display: flex; justify-content: center; padding: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        #result { margin-top: 20px; font-size: 1.4em; font-weight: bold; color: #611f69; padding: 10px; background: #fdf6ff; border-radius: 8px; }
     </style>
 </head>
 <body>
     <div class="card">
         <h2>Unit Converter</h2>
-        <input type="number" id="inputVal" placeholder="Enter number" oninput="convert()">
-        <select id="unitType" onchange="convert()">
-            <option value="kmToMi">Kilometers to Miles</option>
-            <option value="miToKm">Miles to Kilometers</option>
+        <input type="number" id="val" placeholder="Enter value" oninput="convert()">
+        <select id="direction" onchange="convert()">
+            <option value="kmToMi">km to mi</option>
+            <option value="miToKm">mi to km</option>
         </select>
-        <div id="result">Result: 0</div>
+        <div id="result">0</div>
     </div>
 
     <script>
         function convert() {
-            const val = document.getElementById('inputVal').value;
-            const type = document.getElementById('unitType').value;
-            const display = document.getElementById('result');
-            
-            if (!val) { display.innerHTML = "Result: 0"; return; }
-
-            if (type === "kmToMi") {
-                display.innerHTML = `Result: ${(val * 0.621371).toFixed(2)} miles`;
-            } else {
-                display.innerHTML = `Result: ${(val / 0.621371).toFixed(2)} km`;
-            }
+            const val = document.getElementById('val').value;
+            const direction = document.getElementById('direction').value;
+            const resultDiv = document.getElementById('result');
+            if (!val) { resultDiv.innerHTML = "0"; return; }
+            const res = (direction === "kmToMi") ? val * 0.621371 : val / 0.621371;
+            resultDiv.innerHTML = `${res.toFixed(2)} ${direction === "kmToMi" ? 'miles' : 'km'}`;
         }
     </script>
 </body>
