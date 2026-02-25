@@ -1,29 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; min-height: 15.0px}
-  </style>
+    <meta charset="UTF-8">
+    <title>Unit Converter</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding: 50px; background-color: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 8px; shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        #result { margin-top: 20px; font-size: 1.2em; font-weight: bold; color: #611f69; }
+    </style>
 </head>
 <body>
-<p class="p1">import streamlit as st</p>
-<p class="p2"><br></p>
-<p class="p1">st.title("Kilometer/Mile Converter")</p>
-<p class="p2"><br></p>
-<p class="p1">val = st.number_input("Enter value:", value=0.0)</p>
-<p class="p1">direction = st.selectbox("Direction:", ["km to mi", "mi to km"])</p>
-<p class="p2"><br></p>
-<p class="p1">if direction == "km to mi":</p>
-<p class="p1"><span class="Apple-converted-space">    </span>result = val * 0.621371</p>
-<p class="p1"><span class="Apple-converted-space">    </span>st.success(f"{val} km is {result:.2f} miles")</p>
-<p class="p1">else:</p>
-<p class="p1"><span class="Apple-converted-space">    </span>result = val / 0.621371</p>
-<p class="p1"><span class="Apple-converted-space">    </span>st.success(f"{val} miles is {result:.2f} km")</p>
+    <div class="card">
+        <h2>Unit Converter</h2>
+        <input type="number" id="inputVal" placeholder="Enter number" oninput="convert()">
+        <select id="unitType" onchange="convert()">
+            <option value="kmToMi">Kilometers to Miles</option>
+            <option value="miToKm">Miles to Kilometers</option>
+        </select>
+        <div id="result">Result: 0</div>
+    </div>
+
+    <script>
+        function convert() {
+            const val = document.getElementById('inputVal').value;
+            const type = document.getElementById('unitType').value;
+            const display = document.getElementById('result');
+            
+            if (!val) { display.innerHTML = "Result: 0"; return; }
+
+            if (type === "kmToMi") {
+                display.innerHTML = `Result: ${(val * 0.621371).toFixed(2)} miles`;
+            } else {
+                display.innerHTML = `Result: ${(val / 0.621371).toFixed(2)} km`;
+            }
+        }
+    </script>
 </body>
 </html>
